@@ -27,7 +27,9 @@ public class PricesRepositoryImpl implements PricesRepository {
 
     @Override
     public List<Prices> priceFilterParameters(PriceFilterParameters priceFilterParameters) {
-        List<PricesVO> pricesVOList = h2PricesRepository.priceFilterParameters(priceFilterParameters);
+        List<PricesVO> pricesVOList = h2PricesRepository.findByDateRangeBrandIdProductId(
+                priceFilterParameters.getStartDate(), priceFilterParameters.getBrandId(),
+                priceFilterParameters.getProductId());
         if (pricesVOList == null) {
             return Collections.emptyList();
         }

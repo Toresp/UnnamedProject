@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @Component
 public class DTOPricesMapper {
 
-
     public PricesListDTO mapToDTOs(List<Prices> pricesList) {
         PricesListDTO pricesListDTO = new PricesListDTO();
         pricesListDTO.setPricesDTOList(pricesList.stream().map(this::mapToDTO).collect(Collectors.toList()));
@@ -20,15 +19,11 @@ public class DTOPricesMapper {
 
     public PricesDTO mapToDTO(Prices prices) {
         PricesDTO dto = new PricesDTO();
-        dto.setId(prices.getId());
         dto.setBrandId(prices.getBrandId());
-        dto.setStartDate(prices.getStartDate());
-        dto.setEndDate(prices.getEndDate());
-        dto.setPriceList(prices.getPriceList());
+        dto.setStartDate(prices.getStartDate().toString());
+        dto.setEndDate(prices.getEndDate().toString());
         dto.setProductId(prices.getProductId());
-        dto.setPriority(prices.getPriority());
         dto.setPrice(prices.getPrice());
-        dto.setCurr(prices.getCurr());
         return dto;
     }
 

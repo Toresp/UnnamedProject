@@ -13,7 +13,6 @@ public class PricesService {
 
     private PricesRepository pricesRepository;
 
-
     @Autowired
     public PricesService(PricesRepository pricesRepository) {
         this.pricesRepository = pricesRepository;

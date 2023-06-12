@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.List;
 
-import static com.example.miguelS.provisionalname.domain.Constants.PRICES;
+import static com.example.miguelS.provisionalname.infrastructure.controllers.Constants.PRICES;
 
 @RestController
 public class RecieveDataController {
@@ -30,24 +31,24 @@ public class RecieveDataController {
 
 
     @GetMapping(PRICES)
-    public ResponseEntity<PricesListDTO> Prices(@RequestParam("appDate") String appDate, @RequestParam("productId") Long productId, @RequestParam("brandId") Long brandId) {
+    public ResponseEntity<PricesListDTO> Prices(
+            @RequestParam(value = "appDate", required = false) Instant appDate,
+            @RequestParam(value = "productId", required = false) Long productId,
+            @RequestParam(value = "brandId", required = false) Long brandId) {
         try {
             List<Prices> pricesList = this.pricesService.getPrices(PriceFilterParameters.builder()
                     .startDate(appDate)
                     .productId(productId)
                     .brandId(brandId).build());
             if (pricesList.isEmpty()) {
-                ResponseEntity.notFound().build();
+                return ResponseEntity.notFound().build();
             }
-            ResponseEntity.ok(dtoPricesMapper.mapToDTOs(pricesList));
+            return ResponseEntity.ok(dtoPricesMapper.mapToDTOs(pricesList));
         } catch (RuntimeException e) {
             //TODO logger
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
-
-
-        return ResponseEntity.ok().build();
     }
 
 }

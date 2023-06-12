@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Builder
 @Getter
@@ -14,9 +14,9 @@ public class Prices {
 
     private Long brandId;
 
-    private String startDate;
+    private Instant startDate;
 
-    private String endDate;
+    private Instant endDate;
 
     private String priceList;
 
@@ -27,4 +27,5 @@ public class Prices {
     private BigDecimal price;
 
     private String curr;
+
 }
